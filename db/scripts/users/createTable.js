@@ -1,9 +1,13 @@
-import db from "../../connection.js";
+import query from "../../connection.js";
 
-const response = db.query(
-  `CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, username TEXT, first_name TEXT, last_name TEXT);`
-);
+const response = `CREATE TABLE IF NOT EXISTS passwords (id SERIAL PRIMARY KEY, name TEXT, password TEXT)`;
 
 console.log(response);
 
-db.end();
+async function createPasswordsTable() {
+  const res = await query(response);
+
+  console.log("Table Created!", res);
+}
+
+createPasswordsTable();

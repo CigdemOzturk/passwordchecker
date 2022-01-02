@@ -1,8 +1,42 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Oswald", sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-a {
-  color: #00B7FF;
+h1 {
+  text-align: center;
+}
+
+.info {
+  text-align: center;
+}
+
+.input-area {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.passsword-input,
+.text-input {
+  border-radius: 8px;
+  width: 200px;
+  height: 30px;
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.search-button {
+  border-radius: 8px;
+  background-color: #f44336;
+  width: 150px;
+  height: 50px;
+}
+
+.result {
+  text-align: center;
 }
