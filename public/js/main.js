@@ -8,7 +8,7 @@
 import crypto from "crypto";
 
 const searchButton = document.querySelector("#search");
-const passwordArray = [];
+// const passwordArray = [];
 
 function handleTextInput() {
   const textInput = document.querySelector(".text-input").value;
@@ -24,26 +24,43 @@ function emptyInputArea() {
   return (textInput.value = "") && (passwordInput.value = "");
 }
 
-export function passwords(arrayObject, key, value) {
-  return [{ ...arrayObject, [key]: value }];
+// export function passwords(arrayObject, key, value) {
+//   return [{ ...arrayObject, [key]: value }];
+// }
+
+async function passwords() {
+  //console.log(gatherFormData());
+  const localurl = "http://localhost:3000";
+  const response = await fetch(`${localurl}/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(gatherFormData()),
+  });
+  const data = await response.json();
+  console.log(data);
 }
 
-const searchButtonEvent = searchButton.addEventListener(
-  "click",
-  function (event) {
-    event.preventDefault();
+function gatherFormData() {
+  const searchText = handleTextInput();
+  const searchPassword = handlePasswordInput();
+  return { searchText, searchPassword };
+}
 
-    const searchText = handleTextInput();
-    const searchPassword = handlePasswordInput();
+searchButton.addEventListener("click", function (event) {
+  event.preventDefault();
 
-    if (searchPassword === "" && searchText === "") {
-      return;
-    }
-    passwords(passwordArray, searchText, searchPassword);
-    main(searchPassword);
-    emptyInputArea();
+  // const searchText = handleTextInput();
+  // const searchPassword = handlePasswordInput();
+
+  const result = passwords();
+
+  if (result !== {}) {
+    return;
   }
-);
+  //passwords(passwordArray, searchText, searchPassword);
+  main(searchPassword);
+  emptyInputArea();
+});
 
 // //Requesting API data
 async function fetchApiData(passwordData) {
@@ -82,7 +99,7 @@ function pwnedApiCheck(password) {
     .toUpperCase();
 
   const first5_char = sha1password.subString(0, 5);
-  const tail = sha1password.subString(5, sha1password.length);
+  const tail = sha1password.substring(5, sha1password.length);
   const response = fetchApiData(first5_char);
   return getPasswordLeaksCount(response, tail);
 }

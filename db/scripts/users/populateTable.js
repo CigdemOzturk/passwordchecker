@@ -1,13 +1,12 @@
 import query from "../../connection.js";
-import { passwords } from "../../../public/js/main.js";
+import passwords from "../../../libs/passwords.js";
 
 async function populatePasswordsTable() {
-  const passwordsArray = passwords();
-  for (let i = 0; i < passwordsArray.length; i++) {
-    const name = passwordsArray[i].name;
-    const password = passwordsArray[i].password;
+  for (let i = 0; i < passwords.length; i++) {
+    const name = passwords[i].name;
+    const password = passwords[i].password;
     const res = await query(
-      `INSERT INTO passwords (name, password) VALUES (&1, &2) RETURNING pasword`,
+      `INSERT INTO passwords (name, password) VALUES ($1, $2) RETURNING *`,
       [name, password]
     );
     console.log(res);

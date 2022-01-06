@@ -8,7 +8,7 @@ import {
 } from "../models/passwords.js";
 
 /* GET passwordss listing. */
-router.get("/", async function (req, res) {
+router.get("/passwords", async function (req, res) {
   const name = req.query.name;
 
   if (name) {
@@ -26,7 +26,14 @@ router.get("/", async function (req, res) {
 router.get("/:id", async function (req, res) {
   const { id } = req.params;
   const requestedPassword = await getPasswordsById(id);
-  res.json({ message: `Found password ${id}`, payload: requestedPassord });
+  res.json({ message: `Found password ${id}`, payload: requestedPassword });
 });
 
 export default router;
+
+// router.post("/paswords", async function (req, res) {
+//   const createdRecipe = await createPasswords(req.body);
+//   // console.log(req.body);
+//   console.log(createdRecipe);
+//   res.json({ message: `Added ${req.body}`, payload: createPasswords });
+// });
