@@ -5,6 +5,7 @@ import {
   getAllPasswords,
   getPasswordsById,
   getPasswordsByName,
+  createPasswords,
 } from "../models/passwords.js";
 
 /* GET passwordss listing. */
@@ -29,11 +30,11 @@ router.get("/:id", async function (req, res) {
   res.json({ message: `Found password ${id}`, payload: requestedPassword });
 });
 
-export default router;
+/*POSTs name and password. */
+router.post("/passwords", async function (req, res) {
+  const { name, password } = req.body;
+  const createPassword = await createPasswords(name, password);
+  res.json({ message: `Added ${req.body}`, payload: createPassword });
+});
 
-// router.post("/paswords", async function (req, res) {
-//   const createdRecipe = await createPasswords(req.body);
-//   // console.log(req.body);
-//   console.log(createdRecipe);
-//   res.json({ message: `Added ${req.body}`, payload: createPasswords });
-// });
+export default router;
