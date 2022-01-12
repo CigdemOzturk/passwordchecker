@@ -28,14 +28,19 @@ async function passwords() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(gatherFormData()),
   });
-  // const data = await response.json();
-  // console.log(data);
+  const data = await response.json();
+  console.log(data);
+  emptyInputArea();
 }
 
 function gatherFormData() {
   const searchText = handleTextInput();
   const searchPassword = handlePasswordInput();
   return { searchText, searchPassword };
+}
+
+function emptyInputArea() {
+  return (textInput.value = "") && (passwordInput.value = "");
 }
 
 searchButton.addEventListener("click", function (event) {
