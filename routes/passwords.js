@@ -33,8 +33,17 @@ router.get("/:id", async function (req, res) {
 /*POSTs name and password. */
 router.post("/passwords", async function (req, res) {
   const { name, password } = req.body;
-  const createPassword = await createPasswords(name, password);
-  res.json({ message: `Added ${req.body}`, payload: createPassword });
+  console.log("ROUTES NAME: ", name);
+  const createPassword = await createPasswords(
+    req.body.name,
+    req.body.password
+  );
+  console.log("Req.body.name: ", req.body.name);
+  console.log("CREATEPASWORDS IN ROUTES: ", createPassword);
+  res.json({
+    message: `Added ${req.body}`,
+    payload: createPassword,
+  });
 });
 
 export default router;

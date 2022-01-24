@@ -7,6 +7,8 @@
 
 // import crypto from "crypto";
 
+const url = "http://localhost:3000";
+
 const searchButton = document.querySelector("#search");
 
 function handleTextInput() {
@@ -16,26 +18,28 @@ function handleTextInput() {
 
 function handlePasswordInput() {
   const passwordInput = document.querySelector(".passsword-input").value;
-  console.log(passwords);
+  console.log("PASSWORD: ", passwordInput);
+  console.log("PASSWORDS FUNCTION: ", passwords);
   return passwordInput;
 }
 
 async function passwords() {
-  // console.log(gatherFormData());
-  const localurl = "http://localhost:3000";
-  const response = await fetch(`${localurl}/passwords`, {
+  console.log("GATHERFORMDATA: ", gatherFormData());
+  const response = await fetch(`${url}/passwords`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(gatherFormData()),
   });
   const data = await response.json();
-  console.log(data);
-  emptyInputArea();
+  console.log("DATA: ", data.body);
+  // emptyInputArea();
 }
 
 function gatherFormData() {
   const searchText = handleTextInput();
+  console.log("HANDLETEXTINPUT: ", searchText);
   const searchPassword = handlePasswordInput();
+  console.log("HANDLEPASSWORDINPUT: ", searchPassword);
   return { searchText, searchPassword };
 }
 

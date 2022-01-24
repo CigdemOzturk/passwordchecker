@@ -23,5 +23,6 @@ export async function createPasswords(name, password) {
     `INSERT INTO passwords (name, password) VALUES ($1, $2) RETURNING name, password;`,
     [name, password]
   );
+  console.log("MODELS: ", result);
   return result.rows;
 }
